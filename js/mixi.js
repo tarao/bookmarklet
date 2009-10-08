@@ -1,12 +1,12 @@
 (function() {
     if (typeof Mixi == 'undefined') Mixi = {};
+    var getId = function(which) {
+        var re = new RegExp((which||[]).concat(['id']).join('_')+'=(\\d+)');
+        return re.test(location.href) && RegExp.$1;
+    };
     var U = {
-        getOwner: function(){
-            var id = /owner_id=(\d+)/.test(location.href) && RegExp.$1;
-            id = id||/id=(\d+)/.test(location.href) && RegExp.$1;
-            return { id: id };
-        },
-        getViewer: function(){return {id:null};}
+        getOwner: function(){ return { id: getId(['owner']) || getId() }; },
+        getViewer: function(){ return {id:null}; },
     };
     Mixi.User = Mixi.User||U;
     var ar = ARGV;
@@ -19,7 +19,7 @@
         var uri = dom+what.join('_')+'.pl'+'?'+q.join('&');
         location.href = uri;
     };
-    var moveId = function(what, id){ move(what,{id:id=id||owner||viewer}); };
+    var moveId = function(what, id){ move(what,{id:id||owner||viewer}); };
     var how = {profile:'show',log:'show',calendar:'show'};
     var list = function(name, id){ moveId([how[name]||'list',name],id); };
     var replace = function(t, a) {
@@ -57,6 +57,9 @@
         add: function(cmd, name) {
             moveId([cmd,name||'diary'], viewer);
         },
+        edit: function(cmd, name, id) {
+            moveId([cmd,name||'diary'], id||getId());
+        },
         new: function(cmd, name) {
             if (name=='diary') name=null;
             moveId([cmd,name||'friend_diary'], viewer);
@@ -78,8 +81,8 @@
         },
     };
     var alias = {
-        e: 'escape',
         a: 'add',
+        e: 'edit',
         d: 'diary',
         p: 'profile',
         m: 'message',
