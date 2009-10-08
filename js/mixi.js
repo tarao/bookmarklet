@@ -73,10 +73,11 @@
         bookmark: function(cmd, name) {
             move(['list','bookmark'], { kind: 'community' });
         },
-        search: function(cmd, name, query) {
+        search: function(cmd, name) {
+            var query = Array.slice(arguments,2);
             move([cmd, name], {
-                keyword: query,
-                submit: query && query.length>0 && 'search'
+                keyword: query.join(' '),
+                submit: (query && query.length>0 && 'search')||''
             });
         },
     };
