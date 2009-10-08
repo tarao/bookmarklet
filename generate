@@ -1,0 +1,23 @@
+#! /usr/bin/env ruby
+
+test = $*.shift && true if $*[0] == '--test'
+
+if $*[0] == '--help' || $*.length < 1
+  print <<'EOM'
+Usage: #{File.basename($0)} [--test] name ...
+Generate bookmarklet.
+EOM
+end
+
+local  = 'labs.orezdnu.org/js/bookmarklet/'
+github = 'github.com/tarao/bookmarklet/raw/master/js/'
+url = %W"
+  http://
+  #{test ? local : github }
+".join('')
+list = $*.map{|name| "'#{url}#{name}.js'"}.join(',')
+
+# See http://d.hatena.ne.jp/murky-satyr/20090121/1232326025
+print <<"EOM"
+javascript:'#{$*[0]}',[#{test},#{list},function(d,i,e,z){z=this.pop();ARGV='%s'.split(/\s+/);for(i=this.length;--i;d.body.appendChild(e))e=d.createElement('script'),e.src=this[i]+(z&&'?'+encodeURI(Date())||''),e.charset='utf-8'}].reverse()[0](document)
+EOM

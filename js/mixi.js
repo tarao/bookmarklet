@@ -1,0 +1,102 @@
+(function() {
+    if (typeof Mixi == 'undefined') Mixi = {};
+    var U = {
+        getOwner: function(){
+            var id = /owner_id=(\d+)/.test(location.href) && RegExp.$1;
+            id = id||/id=(\d+)/.test(location.href) && RegExp.$1;
+            return { id: id };
+        },
+        getViewer: function(){return {id:null};}
+    };
+    Mixi.User = Mixi.User||U;
+    var ar = ARGV;
+    var dom = 'http://mixi.jp/';
+    var owner = (Mixi.User.getOwner()||U.getOwner()).id;
+    var viewer = (Mixi.User.getViewer()||U.getViewer()).id;
+    var move = function(what, param) {
+        var q = [];
+        for (var p in param){ q.push(p+'='+param[p]); }
+        var uri = dom+what.join('_')+'.pl'+'?'+q.join('&');
+        location.href = uri;
+    };
+    var moveId = function(what, id){ move(what,{id:id=id||owner||viewer}); };
+    var how = {profile:'show',log:'show',calendar:'show'};
+    var list = function(name, id){ moveId([how[name]||'list',name],id); };
+    var replace = function(t, a) {
+        return Array.reduce(a, function(p,c) {
+            return p.replace(new RegExp(c[0], 'g'), c[1]);
+        }, t);
+    };
+    var methods = {
+        id: function() {
+            document.body.innerHTML = replace(document.body.innerHTML, [
+                [ 'href=\x22show_friend\\.pl\\?id=([0-9]*)\x22>',
+                  'href=\x22show_friend.pl?id=$1\x22>[id:$1]' ],
+                [ '<div class=\x22iconListImage\x22>'
+                  +'<a href=\x22show_friend\\.pl\\?id=([0-9]*)\x22 style',
+                  '<a href=\x22show_friend.pl?id=$1\x22>[id:$1]</a>'
+                  +'<div class=\x22iconListImage\x22>'
+                  +'<a href=\x22show_friend\.pl\?id=$1\x22 style' ]
+            ]);
+        },
+        escape: function(cmd, n, tag, c) {
+            tag = tag||'textarea';
+            var s = '&nbsp;', t = document.getElementsByTagName(tag)[c||0];
+            if(t) {
+                var a = ['&','&amp;'];
+                var r = [
+                    a,
+                    ['\x20{2}',s+s],
+                    ['\t',s+s+s+s],
+                    ['&nbsp;\x20',s+s]
+                ];
+                for (var i=1; i<n; i++) r.push(a);
+                t.value = replace(t.value, r);
+            }
+        },
+        add: function(cmd, name) {
+            moveId([cmd,name||'diary'], viewer);
+        },
+        new: function(cmd, name) {
+            if (name=='diary') name=null;
+            moveId([cmd,name||'friend_diary'], viewer);
+        },
+        favorite: function(cmd, name) {
+            if (name == 'community') {
+                return 'bookmark';
+            }
+            moveId(['view','mylist'], viewer);
+        },
+        bookmark: function(cmd, name) {
+            move(['list','bookmark'], { kind: 'community' });
+        },
+        search: function(cmd, name, query) {
+            move([cmd, name], {
+                keyword: query,
+                submit: query && query.length>0 && 'search'
+            });
+        },
+    };
+    var alias = {
+        e: 'escape',
+        a: 'add',
+        d: 'diary',
+        p: 'profile',
+        m: 'message',
+        l: 'log',
+        n: 'new',
+        f: 'friend',
+        c: 'community',
+        s: 'search',
+        com: 'comment',
+        cal: 'calendar',
+        fav: 'favorite',
+        mylist: 'favorite',
+    };
+    if (ar[0] = alias[ar[0]] || ar[0]) {
+        var r = (methods[ar[0]]||list).apply(this,ar);
+        if (typeof r == 'string') methods[r].apply(this,ar);
+    } else {
+        location.href = 'https://mixi.jp/';
+    }
+})();
