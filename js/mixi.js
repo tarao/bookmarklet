@@ -75,7 +75,7 @@
         },
         search: function(cmd, name) {
             var query = Array.slice(arguments,2);
-            move([cmd, name], {
+            move([cmd, name||'diary'], {
                 keyword: query.join(' '),
                 submit: (query && query.length>0 && 'search')||''
             });
