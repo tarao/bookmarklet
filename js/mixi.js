@@ -98,8 +98,9 @@
         mylist: 'favorite',
     };
     if (ar[0] = alias[ar[0]] || ar[0]) {
-        var r = (methods[ar[0]]||list).apply(this,ar);
-        if (typeof r == 'string') methods[r].apply(this,ar);
+        while (typeof ar[0] == 'string') {
+            ar[0] = (methods[ar[0]]||list).apply(this,ar);
+        }
     } else {
         location.href = 'https://mixi.jp/';
     }
