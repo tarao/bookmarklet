@@ -54,6 +54,9 @@
                 t.value = replace(t.value, r);
             }
         },
+        logout: function(cmd) {
+            move([cmd]);
+        },
         add: function(cmd, name) {
             moveId([cmd,name||'diary'], viewer);
         },
@@ -87,7 +90,6 @@
         d: 'diary',
         p: 'profile',
         m: 'message',
-        l: 'log',
         n: 'new',
         f: 'friend',
         c: 'community',
