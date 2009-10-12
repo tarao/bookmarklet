@@ -64,7 +64,11 @@
             moveId([cmd,name||'diary'], id||getId());
         },
         new: function(cmd, name) {
-            if (name=='diary') name=null;
+            if (name == 'diary') {
+                name = null;
+            } else if (name == 'community') {
+                name = 'bbs';
+            }
             moveId([cmd,name||'friend_diary'], viewer);
         },
         favorite: function(cmd, name) {
@@ -85,25 +89,36 @@
         },
     };
     var alias = {
-        a: 'add',
-        e: 'edit',
-        d: 'diary',
-        p: 'profile',
-        m: 'message',
-        n: 'new',
-        f: 'friend',
-        c: 'community',
-        s: 'search',
-        com: 'comment',
-        cal: 'calendar',
-        fav: 'favorite',
-        mylist: 'favorite',
+        _: {
+            d: 'diary',
+            f: 'friend',
+            p: 'profile',
+            m: 'message',
+            bbs: 'community',
+            com: 'comment',
+            cal: 'calendar',
+            fav: 'favorite',
+            mylist: 'favorite',
+        },
+        0: {
+            a: 'add',
+            b: 'bookmark',
+            e: 'edit',
+            n: 'new',
+            s: 'search',
+        },
     };
-    if (ar[0] = alias[ar[0]] || ar[0]) {
+    var resolve = function(alias, i, name) {
+        return (alias[i]||{})[name] || (alias._||{})[name];
+    };
+    ar = ar.map(function(v,i) {
+        return resolve(alias,i,v) || resolve(alias,i,v) || v;
+    });
+    if (!ar[0]) {
+        location.href = 'https://mixi.jp/';
+    } else {
         while (typeof ar[0] == 'string') {
             ar[0] = (methods[ar[0]]||list).apply(this,ar);
         }
-    } else {
-        location.href = 'https://mixi.jp/';
     }
 })();
