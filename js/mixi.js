@@ -81,10 +81,10 @@
             move(['list','bookmark'], { kind: 'community' });
         },
         search: function(cmd, name) {
-            var query = Array.slice(arguments,2);
+            var query = Array.slice(arguments,2).join(' ');
             move([cmd, name||'diary'], {
-                keyword: query.join(' '),
-                submit: (query && query.length>0 && 'search')||''
+                keyword: query,
+                submit: (query.length>0 && 'search')||''
             });
         },
     };
