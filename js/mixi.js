@@ -87,6 +87,9 @@
                 submit: (query.length>0 && 'search')||''
             });
         },
+        recent: function(cmd, name) {
+            moveId([cmd, name]);
+        },
     };
     var alias = {
         _: {
@@ -106,6 +109,7 @@
             e: 'edit',
             n: 'new',
             s: 'search',
+            r: 'recent',
         },
     };
     var resolve = function(alias, i, name) {
