@@ -1,4 +1,4 @@
-(function() {
+(function(d, dom, ar) {
     if (typeof Mixi == 'undefined') Mixi = {};
     var getId = function(which) {
         var re = new RegExp((which||[]).concat(['id']).join('_')+'=(\\d+)');
@@ -9,8 +9,6 @@
         getViewer: function(){ return {id:null}; },
     };
     Mixi.User = Mixi.User||U;
-    var ar = ARGV;
-    var dom = 'http://mixi.jp/';
     var owner = (Mixi.User.getOwner()||U.getOwner()).id;
     var viewer = (Mixi.User.getViewer()||U.getViewer()).id;
     var move = function(what, param) {
@@ -29,26 +27,26 @@
     };
     var methods = {
         id: function() {
-            document.body.innerHTML = replace(document.body.innerHTML, [
+            d.body.innerHTML = replace(d.body.innerHTML, [
                 [ 'href=\x22show_friend\\.pl\\?id=([0-9]*)\x22>',
                   'href=\x22show_friend.pl?id=$1\x22>[id:$1]' ],
                 [ '<div class=\x22iconListImage\x22>'
                   +'<a href=\x22show_friend\\.pl\\?id=([0-9]*)\x22 style',
                   '<a href=\x22show_friend.pl?id=$1\x22>[id:$1]</a>'
                   +'<div class=\x22iconListImage\x22>'
-                  +'<a href=\x22show_friend\.pl\?id=$1\x22 style' ]
+                  +'<a href=\x22show_friend\.pl\?id=$1\x22 style' ],
             ]);
         },
         escape: function(cmd, n, tag, c) {
             tag = tag||'textarea';
-            var s = '&nbsp;', t = document.getElementsByTagName(tag)[c||0];
+            var s = '&nbsp;', t = d.getElementsByTagName(tag)[c||0];
             if(t) {
                 var a = ['&','&amp;'];
                 var r = [
                     a,
                     ['\x20{2}',s+s],
                     ['\t',s+s+s+s],
-                    ['&nbsp;\x20',s+s]
+                    ['&nbsp;\x20',s+s],
                 ];
                 for (var i=1; i<n; i++) r.push(a);
                 t.value = replace(t.value, r);
@@ -125,4 +123,4 @@
             ar[0] = (methods[ar[0]]||list).apply(this,ar);
         }
     }
-})();
+})(document, 'http://mixi.jp/', ARGV);
