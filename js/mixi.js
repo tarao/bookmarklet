@@ -89,7 +89,7 @@
             moveId([cmd, name]);
         },
     };
-    var alias = {
+    var alias = ar.alias || {
         _: {
             d: 'diary',
             f: 'friend',

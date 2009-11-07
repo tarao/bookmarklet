@@ -1,6 +1,6 @@
 (function(){
     var defs = {
-        gnn: {
+        gnn: (ARGV.defs||{}).gnn || {
             domain: 'orezdnu.org',
             alias: {
                 0: {
@@ -8,7 +8,7 @@
                 },
             },
         },
-        hatena: {
+        hatena: (ARGV.defs||{}).hatena || {
             domain: 'hatena.ne.jp',
             sub: 'www',
             alias: {
@@ -38,7 +38,7 @@
                 },
             },
         },
-        statuscode: {
+        statuscode: (ARGV.defs||{}).statuscode || {
             domain: 'status-code.com',
         },
     };
