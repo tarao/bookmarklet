@@ -1,5 +1,5 @@
 (function(){
-    var defs = {
+    var defs = ARGV.mydefs || {
         gnn: (ARGV.defs||{}).gnn || {
             domain: 'orezdnu.org',
             alias: {
