@@ -1,6 +1,18 @@
 (function(){
-    var defs = ARGV.mydefs || {
-        gnn: (ARGV.defs||{}).gnn || {
+    var override = function(obj, by) {
+        for (prop in (by||{})) {
+            if (obj[prop] === null
+                || typeof by[prop] != 'object'
+                || typeof obj[prop] != 'object') {
+                obj[prop] = by[prop];
+            } else {
+                override(obj[prop], by[prop]);
+            }
+        }
+        return obj;
+    };
+    var defs = override({
+        gnn: {
             domain: 'orezdnu.org',
             alias: {
                 0: {
@@ -8,7 +20,7 @@
                 },
             },
         },
-        hatena: (ARGV.defs||{}).hatena || {
+        hatena: {
             domain: 'hatena.ne.jp',
             sub: 'www',
             alias: {
@@ -38,10 +50,10 @@
                 },
             },
         },
-        statuscode: (ARGV.defs||{}).statuscode || {
+        statuscode: {
             domain: 'status-code.com',
         },
-    };
+    }, ARGV.defs);
     (function(d, def, ar) {
         if (!def) throw TypeError('no definition for ' + ARG0);
         var dom = def.domain;

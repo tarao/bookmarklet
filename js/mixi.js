@@ -1,4 +1,16 @@
 (function(d, dom, ar) {
+    var override = function(obj, by) {
+        for (prop in (by||{})) {
+            if (obj[prop] === null
+                || typeof by[prop] != 'object'
+                || typeof obj[prop] != 'object') {
+                obj[prop] = by[prop];
+            } else {
+                override(obj[prop], by[prop]);
+            }
+        }
+        return obj;
+    };
     if (typeof Mixi == 'undefined') Mixi = {};
     var getId = function(which) {
         var re = new RegExp((which||[]).concat(['id']).join('_')+'=(\\d+)');
@@ -6,7 +18,7 @@
     };
     var U = {
         getOwner: function(){ return { id: getId(['owner']) || getId() }; },
-        getViewer: function(){ return {id:null}; },
+        getViewer: function(){ return {id: ar.id || ''}; },
     };
     Mixi.User = Mixi.User||U;
     var owner = (Mixi.User.getOwner()||U.getOwner()).id;
@@ -89,7 +101,7 @@
             moveId([cmd, name]);
         },
     };
-    var alias = ar.alias || {
+    var alias = override({
         _: {
             d: 'diary',
             f: 'friend',
@@ -109,7 +121,7 @@
             s: 'search',
             r: 'recent',
         },
-    };
+    }, ar.alias);
     var resolve = function(alias, i, name) {
         return (alias[i]||{})[name] || (alias._||{})[name];
     };
