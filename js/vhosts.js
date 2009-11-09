@@ -1,6 +1,7 @@
 (function(){
     var override = function(obj, by) {
-        for (prop in (by||{})) {
+        by = by||{};
+        for (prop in by) {
             if (obj[prop] === null
                 || typeof by[prop] != 'object'
                 || typeof obj[prop] != 'object') {
