@@ -1,4 +1,5 @@
 (function(){
+    var schemeRegex = new RegExp('s?https?://');
     var override = function(obj, by) {
         by = by||{};
         for (prop in by) {
@@ -23,15 +24,25 @@
         },
         hatena: {
             domain: 'hatena.ne.jp',
-            sub: 'www',
+            default: {
+                0: 'www',
+            },
+            sticky: {
+                1: true,
+                b: {
+                    _: true,
+                },
+            },
             alias: {
+                1: {
+                    tag: 't',
+                },
                 b: {
                     1: {
                         hot: 'hotentry',
                         list: 'entrylist',
-                        new: 'entrylist',
+                        get new(){ return this.list; },
                         e: 'entry',
-                        tag: 't',
                     },
                     2: {
                         fav: 'favorite',
@@ -40,21 +51,37 @@
                         2: {
                             soc: 'social',
                             eco: 'economics',
-                            politics: 'economics',
-                            pol: 'economics',
+                            get politics(){ return this.eco; },
+                            get pol(){ return this.eco; },
                             ent: 'entertainment',
-                            sports: 'entertainment',
-                            star: 'entertainment',
+                            get sports(){ return this.ent; },
+                            get star(){ return this.ent; },
                             science: 'knowledge',
-                            sci: 'knowledge',
-                            academic: 'knowledge',
-                            ac: 'knowledge',
+                            get sci(){ return this.science; },
+                            get academic(){ return this.science; },
+                            get ac(){ return this.science; },
                             web: 'it',
                             anime: 'game',
                             neta: 'fun',
                         },
                     },
-                    get entrylist() { return this.hotentry; },
+                    get entrylist(){ return this.hotentry; },
+                },
+                d: {
+                    2: {
+                        profile: 'about',
+                    },
+                },
+                r: {
+                    2: {
+                        table: '?mode=table',
+                        get t(){ return this.table; },
+                    },
+                },
+                s: {
+                    1: {
+                        '*': '*/',
+                    },
                 },
             },
         },
@@ -66,22 +93,27 @@
     (function(d, def, ar) {
         if (!def) throw TypeError('no definition for ' + ARG0);
         var dom = def.domain;
+        var loc = d.location.href.replace(schemeRegex, '').split('/');
+        var re = '^(?:([a-z0-9.]*)\\.)?'+dom;
+        loc[0] = (loc[0].match(new RegExp(re,'i'))||[])[1];
+        while (ar.length < loc.length) ar.push(undefined);
 
-        ar = Array.reduce((ar||[]).length ? ar : [def.sub], function(p, c, i) {
-            var [ path, alias ] = p;
-            var c = (alias[i]||{})[c] || (alias._||{})[c] || c;
+        ar = Array.reduce(ar, function(p, c, i) {
+            var [ path, alias, sticky, defau ] = p;
+            c = c || ((sticky[i] || sticky._) && '*') || defau[i];
+            c = (alias[i]||{})[c] || (alias._||{})[c] || c;
+            c = (c||'').replace(/\*/g, loc[i]||'');
+            c = (c!='/') && c;
             path.push(c);
             alias = override(alias, alias[c]||{});
-            return [ path, alias ];
-        }, [ [], def.alias||{} ])[0];
+            sticky = override(sticky, sticky[c]||{});
+            defau = override(defau, defau[c]||{});
+            return [ path, alias, sticky, defau ];
+        }, [ [], def.alias||{}, def.sticky||{}, def.default||{} ])[0];
 
         var sub = ar.shift();
-        var dir = ar.join('/');
+        var dir = ar.filter(function(x){return x;}).join('/');
 
-        if (!dir) {
-            var re = new RegExp('^.+?://(?:[a-z.]*\\.)?'+dom+'/([^/]+)','i');
-            dir = d.location.href.match(re)?RegExp.$1:(def.dirs||[]).join('/');
-        }
         d.location.href = [
             (def.scheme||'http')+':/',
             [ sub, dom ].filter(function(x){return x;}).join('.'),
