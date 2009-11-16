@@ -32,6 +32,9 @@
                 b: {
                     _: true,
                 },
+                f: {
+                    _: true,
+                },
             },
             alias: {
                 1: {
@@ -96,7 +99,9 @@
         var loc = d.location.href.replace(schemeRegex, '').split('/');
         var re = '^(?:([a-z0-9.]*)\\.)?'+dom;
         loc[0] = (loc[0].match(new RegExp(re,'i'))||[])[1];
-        while (ar.length < loc.length) ar.push(undefined);
+        if (ar[ar.length-1] == '*') {
+            while (ar.length < loc.length) ar.push(undefined);
+        }
 
         ar = Array.reduce(ar, function(p, c, i) {
             var [ path, alias, sticky, defau ] = p;
