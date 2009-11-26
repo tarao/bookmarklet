@@ -1,4 +1,15 @@
 (function(){
+    var jump = function(d, url) {
+        var refresh = [
+            '<html><head><meta http-equiv="refresh" content="0;url=',
+            url,
+            '" /></head></html>',
+        ].join('');
+        d.location.href = [
+            'data:text/html;charset=utf-8,',
+            encodeURIComponent(refresh),
+        ].join('');
+    };
     var schemeRegex = new RegExp('s?https?://');
     var override = function(obj, by) {
         by = by||{};
@@ -119,10 +130,11 @@
         var sub = ar.shift();
         var dir = ar.filter(function(x){return x;}).join('/');
 
-        d.location.href = [
+        var url = [
             (def.scheme||'http')+':/',
             [ sub, dom ].filter(function(x){return x;}).join('.'),
             dir,
         ].join('/');
+        jump(d, url);
     })(document, defs[ARG0], ARGV);
 })();
