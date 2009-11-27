@@ -1,4 +1,17 @@
 (function(d, dom, ar) {
+    var jump = function(d, url) {
+        var refresh = [
+            '<html><head><meta http-equiv="refresh" content="0;url=',
+            url,
+            '" /></head></html>',
+        ].join('');
+        setTimeout(function() {
+            d.location.href = [
+                'data:text/html;charset=utf-8,',
+                encodeURIComponent(refresh),
+            ].join('');
+        }, 0);
+    };
     var override = function(obj, by) {
         by = by||{};
         for (prop in by) {
@@ -28,7 +41,7 @@
         var q = [];
         for (var p in param){ q.push(p+'='+param[p]); }
         var uri = dom+what.join('_')+'.pl'+'?'+q.join('&');
-        location.href = uri;
+        jump(d, uri);
     };
     var moveId = function(what, id){ move(what,{id:id||owner||viewer}); };
     var how = {profile:'show',log:'show',calendar:'show'};
@@ -130,7 +143,7 @@
         return resolve(alias,i,v) || resolve(alias,i,v) || v;
     });
     if (!ar[0]) {
-        location.href = 'https://mixi.jp/';
+        jump(d, 'https://mixi.jp/');
     } else {
         while (typeof ar[0] == 'string') {
             ar[0] = (methods[ar[0]]||list).apply(this,ar);

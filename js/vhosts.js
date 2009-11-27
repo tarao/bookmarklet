@@ -5,10 +5,12 @@
             url,
             '" /></head></html>',
         ].join('');
-        d.location.href = [
-            'data:text/html;charset=utf-8,',
-            encodeURIComponent(refresh),
-        ].join('');
+        setTimeout(function() {
+            d.location.href = [
+                'data:text/html;charset=utf-8,',
+                encodeURIComponent(refresh),
+            ].join('');
+        }, 0);
     };
     var schemeRegex = new RegExp('s?https?://');
     var override = function(obj, by) {
