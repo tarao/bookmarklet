@@ -1,18 +1,4 @@
 (function(){
-    var jump = function(d, url) {
-        var refresh = [
-            '<html><head><meta http-equiv="refresh" content="0;url=',
-            url,
-            '" /></head></html>',
-        ].join('');
-        setTimeout(function() {
-            d.location.href = [
-                'data:text/html;charset=utf-8,',
-                encodeURIComponent(refresh),
-            ].join('');
-        }, 0);
-    };
-    var schemeRegex = new RegExp('s?https?://');
     var override = function(obj, by) {
         by = by||{};
         for (prop in by) {
@@ -88,6 +74,11 @@
                         profile: 'about',
                     },
                 },
+                h2: {
+                    1: {
+                        '*': '*/',
+                    },
+                },
                 r: {
                     2: {
                         table: '?mode=table',
@@ -105,6 +96,21 @@
             domain: 'status-code.com',
         },
     }, ARGV.defs);
+
+    var jump = function(d, url) {
+        var refresh = [
+            '<html><head><meta http-equiv="refresh" content="0;url=',
+            url,
+            '" /></head></html>',
+        ].join('');
+        setTimeout(function() {
+            d.location.href = [
+                'data:text/html;charset=utf-8,',
+                encodeURIComponent(refresh),
+            ].join('');
+        }, 0);
+    };
+    var schemeRegex = new RegExp('s?https?://');
 
     (function(d, def, ar) {
         if (!def) throw TypeError('no definition for ' + ARG0);
