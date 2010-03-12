@@ -74,6 +74,11 @@
                         profile: 'about',
                     },
                 },
+                f: {
+                    2: {
+                        fav: 'follow',
+                    },
+                },
                 h2: {
                     1: {
                         '*': '*/',
@@ -88,6 +93,16 @@
                 s: {
                     1: {
                         '*': '*/',
+                    },
+                },
+                www: {
+                    2: {
+                        a: 'antenna',
+                        fav: 'favorites',
+                        fan: 'fans',
+                        get follower(){ return this.fan; },
+                        friend: 'friends',
+                        get f(){ return this.friend; },
                     },
                 },
             },
