@@ -25,7 +25,7 @@
 
     var head = $tag('head')[0];
 
-    $tag('link', { rel: 'stylesheet' }).forEach(function(x){rm(x)});
+    $tag('link', { rel: 'stylesheet' }).forEach(rm);
     var css = $cr('link', {
         rel: 'stylesheet', type: 'text/css', charset: 'utf-8',
         href: '/css/presentation.css'
@@ -66,9 +66,14 @@
     });
     wait('Hatena.Presentation', function() {
         rm($('simple-header'));
+        rm($('banner'));
         rm($tag('h1')[0]);
-        $tag('div', {className:'comment'}).forEach(function(x){rm(x)});
-        $tag('span', {className:'timestamp'}).forEach(function(x){rm(x)});
+        rm($('pager-top'));
+        rm($('pager-bottom'));
+        $tag('div', {className:'comment'}).forEach(rm);
+        $tag('span', {className:'timestamp'}).forEach(rm);
+        $tag('p', {className:'sectionheader'}).forEach(rm);
+        $tag('a', {href:'javascript:;'}).forEach(rm);
         Hatena.Presentation.initialize($tag('div', {className:'section'}));
     });
 })(document);
