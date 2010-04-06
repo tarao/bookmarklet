@@ -45,18 +45,9 @@
         }
     };
 
-    load('/js/MochiKit/060829/Base.js');
-    load('/js/MochiKit/060829/Iter.js');
-    load('/js/MochiKit/060829/Logging.js');
-    load('/js/MochiKit/060829/DateTime.js');
-    load('/js/MochiKit/060829/Format.js');
-    load('/js/MochiKit/060829/Async.js');
-    load('/js/MochiKit/060829/DOM.js');
-    load('/js/MochiKit/060829/Style.js');
-    load('/js/MochiKit/060829/LoggingPane.js');
-    load('/js/MochiKit/060829/Color.js');
-    load('/js/MochiKit/060829/Signal.js');
-    load('/js/MochiKit/060829/Visual.js');
+    [ 'Base', 'Iter', 'Logging', 'DateTime', 'Format', 'Async', 'DOM', 'Style',
+      'LoggingPane', 'Color', 'Signal', 'Visual'
+    ].map(function(x){ return '/js/MochiKit/060829/'+x+'.js'; }).forEach(load);
     wait('MochiKit.Base', function() {
         load('/js/MochiKit/060829/New.js');
         load('/js/Presentation.js');
