@@ -126,6 +126,7 @@
             cal: 'calendar',
             fav: 'favorite',
             mylist: 'favorite',
+            echo: 'voice',
         },
         0: {
             a: 'add',
