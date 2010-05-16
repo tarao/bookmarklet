@@ -69,6 +69,11 @@
                     },
                     get entrylist(){ return this.hotentry; },
                 },
+                c: {
+                    1: {
+                        '*': '*/',
+                    },
+                },
                 d: {
                     2: {
                         profile: 'about',
@@ -77,11 +82,6 @@
                 f: {
                     2: {
                         fav: 'follow',
-                    },
-                },
-                h2: {
-                    1: {
-                        '*': '*/',
                     },
                 },
                 r: {
