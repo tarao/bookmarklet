@@ -114,6 +114,9 @@
         recent: function(cmd, name) {
             moveId([cmd, name]);
         },
+        voice: function(cmd, name) {
+            move(['list','voice'], { owner_id: name||owner||viewer });
+        },
     };
     var alias = override({
         _: {
