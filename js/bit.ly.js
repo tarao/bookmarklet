@@ -88,13 +88,13 @@
         t.appendChild(d.createTextNode(text));
         body.appendChild(t);
 
-        var x = (document.documentElement.clientWidth-t.offsetWidth)/2;
-        var y = (document.documentElement.clientHeight-t.offsetHeight)/2;
-        t.style.left = x + 'px';
-        t.style.top = y + 'px';
-        y -= cap.offsetHeight + 4;
+        var x = 0;
+        var y = 0;
         cap.style.left = x + 'px';
         cap.style.top = y + 'px';
+        y += cap.offsetHeight + 4;
+        t.style.left = x + 'px';
+        t.style.top = y + 'px';
 
         t.focus();
         t.select();
