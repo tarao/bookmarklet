@@ -105,7 +105,7 @@
     var defs = override({
         domain: 'j.mp',
         format: 'json',
-        longUrl: encodeURI(url)
+        longUrl: encodeURIComponent(url)
     }, argv.defs);
 
     var params = []; for (var p in defs) params.push(p+'='+defs[p]);
