@@ -65,6 +65,7 @@
     var popup = function(caption, text) {
         var body = d.getElementsByTagName('body')[0];
         var t = d.createElement('textarea');
+        t.style.zIndex = 10000;
         t.style.position = 'fixed';
         t.style.border = 'solid 4px #cccccc';
         t.style.backgroundColor = '#eeeeee';
@@ -72,6 +73,7 @@
         t.style.width = '20em';
 
         var cap = d.createElement('span');
+        cap.style.zIndex = 10000;
         cap.style.position = 'fixed';
         cap.style.padding = '0 1em';
         cap.style.fontSize = '9pt';
