@@ -78,7 +78,7 @@
         cap.style.padding = '0 1em';
         cap.style.fontSize = '9pt';
         cap.style.whiteSpace = 'nowrap';
-        cap.style.backgroundColor = '#cccccc';
+        cap.style.backgroundColor = '#ccccff';
         cap.appendChild(d.createTextNode(caption));
         body.appendChild(cap);
 
