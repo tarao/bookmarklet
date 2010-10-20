@@ -5,7 +5,7 @@ GNN.Loader = function(base, noCache) {
         (scripts instanceof Array) || (scripts = [ scripts ]);
         (typeof callback != 'function') && (callback = function(){});
         (typeof error != 'function') && (error = function(src) {
-            alert('GNN.Loader: Failed to load ' + src);
+            throw TypeError('GNN.Loader: Failed to load ' + src);
         });
         var load = function(src) {
             if (noCache) {
