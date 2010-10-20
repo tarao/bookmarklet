@@ -1,0 +1,10 @@
+javascript:[
+    'test','test.js','http://labs.orezdnu.org/js/bookmarklet/',true,
+    function(d,e,c,b,s,n){
+        [e,c,b,s,n]=this;
+        e=d.createElement('script');
+        e.onload=function(){GNN.Let={name:n,arg:'%s'},GNN.lib(b,c),GNN.use(s)};
+        e.src=b+'loader.js';
+        e.charset='utf-8';
+        d.body.appendChild(e);
+    }].reverse()[0](document);
