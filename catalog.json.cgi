@@ -37,13 +37,15 @@ else
   print("Content-Type: text/javascript; charset=utf-8\r\n\r\n")
 end
 
+base = 'base.url'
+base_default_url = 'http://github.com/tarao/bookmarklet/raw/master/js/'
 catalog = {
-  :base => 'http://github.com/tarao/bookmarklet/raw/master/js/',
+  :base => (File.exist?(base) && IO.read(base).strip) || base_default_url,
   :list => {},
 }
 
 if is_local?
-  base = 'base.url'
+  base = 'base.debug.url'
   base_default_url = 'http://labs.orezdnu.org/let/js/'
   catalog[:debug] = {
     :base    => (File.exist?(base) && IO.read(base).strip) || base_default_url,
