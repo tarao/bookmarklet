@@ -50,3 +50,11 @@ GNN.lib = function(base, noCache) {
         loader.load(scripts, callback, error);
     };
 };
+GNN.require = function(req, body) {
+    var s=[];
+    for (var p in req) {
+        var name = req[p].split(/\./);
+        null==name.reduce(function(o,x){return o[x]||null;},GNN) && s.push(p);
+    }
+    GNN.use(s, body);
+};
