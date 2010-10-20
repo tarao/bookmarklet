@@ -1,3 +1,4 @@
+if (typeof GNN == 'undefined') var GNN={};
 (function() {
     var override = function(obj, by) {
         by = by||{};
@@ -12,5 +13,16 @@
         }
         return obj;
     };
-    GNN.Let.override = override;
+    GNN.override = override;
+
+    var inherit = function(child, parent) {
+        var obj = child || {};
+        for (var prop in parent) {
+            if (typeof obj[prop] == 'undefined') {
+                obj[prop] = parent[prop];
+            }
+        }
+        return obj;
+    };
+    GNN.inherit = inherit;
 })();

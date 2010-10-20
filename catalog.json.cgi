@@ -45,7 +45,7 @@ catalog = {
 if is_local?
   base = 'base.url'
   base_default_url = 'http://labs.orezdnu.org/let/js/'
-  catalog[:test] = {
+  catalog[:debug] = {
     :base    => (File.exist?(base) && IO.read(base).strip) || base_default_url,
     :nocache => true,
   }

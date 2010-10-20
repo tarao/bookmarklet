@@ -32,9 +32,9 @@
                 c = (c||'').replace(/\*/g, loc[i]||'');
                 c = (c!='/') && c;
                 path.push(c);
-                alias = GNN.Let.override(alias, alias[c]||{});
-                sticky = GNN.Let.override(sticky, sticky[c]||{});
-                defau = GNN.Let.override(defau, defau[c]||{});
+                alias = GNN.override(alias, alias[c]||{});
+                sticky = GNN.override(sticky, sticky[c]||{});
+                defau = GNN.override(defau, defau[c]||{});
                 return [ path, alias, sticky, defau ];
             }, [ [], def.alias||{}, def.sticky||{}, def.default||{} ])[0];
 

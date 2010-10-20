@@ -7,6 +7,7 @@ RewriteBase /let
 
 RewriteRule ^[^/\?].*\.html - [L]
 RewriteRule ^[^/\?].*\.xhtml - [L]
+RewriteRule ^[^/\?].*\.js$ - [L]
 RewriteRule ^[^/\?].*\.css - [L]
 RewriteRule ^[^/\?].*\.png - [L]
 RewriteRule ^[^/\?].*\.cgi.* - [L]

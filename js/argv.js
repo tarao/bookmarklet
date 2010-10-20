@@ -1,5 +1,6 @@
 (function() { // separate argument string into argument array
     var arg = GNN.Let.arg;
+    if (/^\?s=(.*)\&h=$/.test(arg)) arg = RegExp.$1;
     var isQuoted = /(?:^".*"$|^'.*'$)/;
     var r = new RegExp('((?:^"|(?=[^\\\\])")[^"]*?(?:(?=[^\\\\])"|"$)|' +
                        "(?:^'|(?=[^\\\\])')[^']*?(?:(?=[^\\\\])'|'$))");

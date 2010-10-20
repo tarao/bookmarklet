@@ -1,4 +1,4 @@
-if (typeof GNN == 'undefined') GNN = {};
+if (typeof GNN == 'undefined') var GNN = {};
 GNN.Loader = function(base, noCache) {
     var self = {}; var d = document;
     self.load = function(scripts, callback, error) {
