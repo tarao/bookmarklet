@@ -2,6 +2,7 @@
  * [TODO]
  * - check specification for 'sticky'
  * - function in alias
+ * - support multiple domains?
  */
 (function () {
     var resolveRequirements = function(body) {

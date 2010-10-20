@@ -1,8 +1,13 @@
 /*
- * @title hatena
- * @description A navigator for *.hatena.ne.jp
+ * @title        hatena
+ * @description  A navigator for *.hatena.ne.jp
+ * @type         smart-keyword
+ * @option       def:javascript
  *
- * TODO: load user definition
+ * [TODO]
+ * - load user definition
+ * - merge other hatena.ne.jp related bookmarklets
+ * - support *.hatelabo.jp?
  */
 
 GNN.use([
