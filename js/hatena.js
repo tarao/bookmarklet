@@ -1,7 +1,7 @@
 /*
  * @title        hatena
  * @description  A navigator for *.hatena.ne.jp
- * @type         smart-keyword
+ * @type         smartlet
  * @option       def:javascript
  *
  * [TODO]
