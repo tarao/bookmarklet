@@ -1,0 +1,87 @@
+div.debug_or_release
+{
+   margin-bottom: 1.5em;
+}
+
+div.debug_or_release > a
+{
+   font-weight: bold;
+   padding: 0.3em;
+   margin-right: 0.5em;
+}
+
+div.debug_or_release > a:visited
+{
+  color: darkblue;
+}
+
+div.debug_or_release > a:visited:hover
+{
+  background-color: #e0e0ff;
+  outline-color: blue;
+}
+
+div.debug_or_release > a.selected,
+div.debug_or_release > a.selected:hover,
+div.debug_or_release > a.selected:active,
+div.debug_or_release > a.selected:link,
+div.debug_or_release > a.selected:visited
+{
+   color: white;
+   background-color: gray;
+   text-decoration: none;
+   outline: none;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+}
+
+div.entry
+{
+   border: solid 0.2em #ccddff;
+   -moz-border-radius: 6px;
+   -webkit-border-radius: 6px;
+   margin-bottom: 2em;
+}
+
+div.entry h2
+{
+   color: white;
+   font-size: 120%;
+   margin: 0;
+   padding: 0.3em;
+   border: none;
+   background-color: #99aacc;
+   -moz-border-radius-topleft: 4px;
+   -moz-border-radius-topright: 4px;
+   -webkit-border-top-left-radius: 4px;
+   -webkit-border-top-right-radius: 4px;
+}
+
+div.entry h2 a
+{
+   color: white;
+   font-weight: bold;
+}
+
+div.entry input.smarklet,
+div.entry a.bookmarklet,
+div.entry a.bookmarklet:hover,
+div.entry a.bookmarklet:active,
+div.entry a.bookmarklet:link,
+div.entry a.bookmarklet:visited
+{
+   color: #003333;
+   cursor: pointer;
+   width: 28em;
+   font-size: 100%;
+   text-align: center;
+   text-decoration: none;
+   padding: 0.5em 0.8em;
+   margin-left: 1em;
+   font-weight: bold;
+   background-color: #ccffdd ! important;
+   border: solid 0.2em #99eebb;
+   outline: none;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+}
