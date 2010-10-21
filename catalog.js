@@ -37,7 +37,7 @@ var addCatalog = function(div, catalog, file) {
                 $new('p', { child: $text(meta.description) })
             ]
         });
-        if (meta.type == 'smartlet') {
+        if (meta.type == 'smarklet') {
             var form = $new('form');
             form.method = 'get';
             form.action = actionText.replace(/\s+/g,'');
