@@ -55,7 +55,7 @@ body
   padding: 1em 2em;
   color: #404040;
   min-height: 640px;
-  background: white url("groundzero.png") no-repeat scroll right top;
+  background-color: white;
 }
 
 h1,h2,h3,h4,h5,h6
