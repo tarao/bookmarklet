@@ -29,7 +29,7 @@ var init = (function() {
                 e.onload=function(){GNN.Let={name:n,arg:'";
         actionText = actionText.replace(/\s+/g,'');
         var hiddenText = "'},GNN.lib(b,c),GNN.use(s)};                       \
-                e.src=b+'loader.js';                                         \
+                e.src=b+'lib.js';                                            \
                 e.charset='utf-8';                                           \
                 d.body.appendChild(e);                                       \
             }].reverse()[0](document)";
