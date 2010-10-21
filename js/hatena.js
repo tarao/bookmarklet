@@ -1,8 +1,10 @@
 /*
- * @title        hatena
- * @description  A navigator for *.hatena.ne.jp
- * @type         smartlet
- * @option       def:javascript
+ * @title[en]        hatena
+ * @title[ja]        はてな
+ * @description[en]  A navigator for *.hatena.ne.jp
+ * @description[ja]  *.hatena.ne.jp内のページを簡単に開く
+ * @type             smarklet
+ * @option           def:javascript
  *
  * [TODO]
  * - load user definition

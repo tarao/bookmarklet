@@ -20,6 +20,11 @@ if (typeof GNN.UI == 'undefined') GNN.UI = {};
         if (args.id) elm.id = args.id;
         if (args.klass) elm.className = args.klass;
         forEach(args.style||{}, function(k,s){ elm.style[k] = s });
+        if (args.attr) {
+            for (var attr in args.attr) {
+                elm.setAttribute(attr, args.attr[attr]);
+            }
+        }
         if (args.child) {
             if (!(args.child instanceof Array)) args.child = [ args.child ];
             for (var i=0; i < args.child.length; i++) {

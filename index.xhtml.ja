@@ -7,13 +7,15 @@
   <script type="text/javascript" src="./js/uri.js"></script>
   <script type="text/javascript" src="./js/jsonp.js"></script>
   <script type="text/javascript" src="./js/ui.js"></script>
+  <script type="text/javascript" src="./resource.js"></script>
   <script type="text/javascript" src="./catalog.js"></script>
   <link rel="stylesheet" type="text/css" href="./default.css" />
   <link rel="start" href="http://orezdnu.org/" />
   <link rev="made" href="http://orezdnu.org/" />
   <title>gnn::smartlet</title>
 </head>
-<body onload="init('catalog')">
+<body onload="init('catalog', 'header')" lang="ja">
+  <div id="header"></div>
   <div id="article">
     <h1>gnn::smarklet</h1>
     <div id="catalog">

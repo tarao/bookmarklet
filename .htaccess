@@ -1,15 +1,7 @@
-Options +ExecCGI
+Options +ExecCGI +MultiViews +FollowSymlinks
+MultiviewsMatch Any
 
 AddHandler cgi-script .cgi
 
 RewriteEngine on
-RewriteBase /let
-
-RewriteRule ^[^/\?].*\.html - [L]
-RewriteRule ^[^/\?].*\.xhtml - [L]
-RewriteRule ^[^/\?].*\.js$ - [L]
-RewriteRule ^[^/\?].*\.css - [L]
-RewriteRule ^[^/\?].*\.png - [L]
-RewriteRule ^[^/\?].*\.cgi.* - [L]
-RewriteRule ^([^/\?].*)/(.*) $1.cgi?$2 [L]
-RewriteRule ^([^/\?].*) $1.cgi [L]
+RewriteRule ^((?:.*/)?catalog\.json)$ $1.cgi [L]
