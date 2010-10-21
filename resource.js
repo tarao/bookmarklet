@@ -15,7 +15,12 @@ var Resource = {
             return Resource.gen(context, f.apply(null, args));
         } };
     },
-    lang: function() { return document.body.lang; },
+    lang: function() {
+        if (!this._lang) {
+            this._lang = GNN.URI.location().params.lang || document.body.lang;
+        }
+        return this._lang;
+    },
     res: function(/* id[, args...] */) {
         var args=[]; args.push.apply(args, arguments);
         var id = args.shift();
@@ -26,8 +31,7 @@ var Resource = {
         data = Resource.fun(data);
         return { apply: function(context) {
             data = Resource.gen(context, data);
-            data = data[context.lang]
-            return Resource.gen(context, data);
+            return Resource.gen(context, data[context.lang]);
         } };
     },
     F: function(data) {
@@ -51,89 +55,3 @@ var Resource = {
         } };
     }
 };
-
-with (Resource) { with (GNN.UI) {
-    def('LANGUAGES', [ 'ja', 'en' ]);
-    def('LANG_NAME', function(l) {
-        return {
-            ja: '日本語',
-            en: 'English',
-        }[l];
-    });
-
-    def('NO_TITLE', L({
-        ja: '無題',
-        en: 'no title'
-    }));
-    def('NO_DESCRIPTION', '');
-    def('RELEASE', L({
-        ja: 'リリース',
-        en: 'release'
-    }));
-    def('DEBUG', L({
-        ja: 'デバッグ',
-        en: 'debug'
-    }));
-
-    def('SELECTOR_LANG', function() {
-        return $new('div', {
-            klass: 'lang',
-            child: res('LANGUAGES').map(function(l) {
-                return $new('a', {
-                    klass: l==lang() ? 'selected' : '',
-                    attr: { href: './index.xhtml.'+l },
-                    child: $text(res('LANG_NAME', l))
-                });
-            })
-        });
-    });
-    def('SELECTOR_DEBUG', function(d) {
-        return $new('div', { klass: 'debug-or-release', child: [
-            $new('a', {
-                klass: (d ? '' : 'selected'),
-                attr: { href: './' },
-                child: $text(res('RELEASE')) }),
-            $new('a', {
-                klass: (d ? 'selected' : ''),
-                attr: { href: './?debug=1' },
-                child: $text(res('DEBUG')) }),
-        ] });
-    });
-
-    def('ENTRY', function(file, meta, link) {
-        return $new('div', {
-            klass: 'bookmarklet-info',
-            child: [
-                $new('h2', { id: file,
-                             child: $text(meta.title) }),
-                $new('p', { klass: 'description',
-                            child: $text(meta.description) }),
-                link
-            ]
-        });
-    });
-    def('LINK_SMARKLET', function(file, text1, text2) {
-        return $new('form', {
-            attr: { method: 'get', action: text1 },
-            child: $new('p', {
-                child: [
-                    $new('input', {
-                        klass: 'smart-keyword',
-                        attr: { type: 'text', name: 's',
-                                value: '' } }),
-                    $new('input', {
-                        attr: { type: 'hidden', name: 'h',
-                                value: text2 } })
-                ]
-            })
-        });
-    });
-    def('LINK_BOOKMARKLET', function(file, text1, text2) {
-        return $new('a', {
-            klass: 'simple',
-            child: $text('Add this link (script to load ' + file +
-                         ') to your bookmark'),
-            attr: { href: text1 + text2 }
-        });
-    });
-} }

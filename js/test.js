@@ -1,3 +1,11 @@
+/*
+ * @title[en]        test
+ * @title[ja]        テスト
+ * @description[en]  This is a test
+ * @description[ja]  これはテスト
+ * @type             smarklet
+ */
+
 GNN.use([
     'argv.js',
     'jump.js'

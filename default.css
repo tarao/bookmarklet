@@ -74,25 +74,6 @@ h1
   border-style: none none double none;
 }
 
-h2
-{
-  margin-top: 3em;
-  padding: 0.1em;
-  font-size: 100%;
-  background-color: #808080;
-  color: white;
-  border: solid 0.1em #333333;
-  border-width: 0.15em;
-  text-transform: uppercase;
-}
-
-h2:first-letter
-{
-  font-weight: bold;
-  font-size: 120%;
-  text-transform: uppercase;
-}
-
 p
 {
   margin: 1em 0.5em;
@@ -108,6 +89,12 @@ p.epigraph
   line-height: 3.0;
 }
 
+address
+{
+  text-align: right;
+  font-size: 75%;
+}
+
 #article
 {
   clear: both;
@@ -115,10 +102,43 @@ p.epigraph
   min-height: 600px;
 }
 
-address
+#header
 {
-  text-align: right;
-  font-size: 75%;
+   margin: 0.5em 0;
+   font-size: 80%;
+   float: right;
+}
+
+#header #lang a
+{
+   font-weight: bold;
+   padding: 0.3em;
+   margin-left: 0.5em;
+}
+
+#header #lang a:visited
+{
+  color: darkblue;
+}
+
+#header #lang a:visited:hover
+{
+  background-color: #e0e0ff;
+  outline-color: blue;
+}
+
+#header #lang a.selected,
+#header #lang a.selected:hover,
+#header #lang a.selected:active,
+#header #lang a.selected:link,
+#header #lang a.selected:visited
+{
+   color: white;
+   background-color: gray;
+   text-decoration: none;
+   outline: none;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
 }
 
 #footer

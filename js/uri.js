@@ -4,14 +4,13 @@
         if (new RegExp('^([^:]+)://').test(str)) sch = RegExp.$1;
         var uri = str.replace(new RegExp('^([^:]+)://'), '').split('/');
         var dom = uri.shift();
-        uri = uri.filter(function(v){ return v.length!=0; });
         var params = {};
         var last = uri.pop();
         var q = '?';
-        if (last && /=/.test(last)) {
-            if (/\?(.*)$/.test(last)) {
-                last = RegExp.$1;
-                q = '?';
+        if (last && /[=?]/.test(last)) {
+            if (/^(.*)\?(.*)$/.test(last)) {
+                uri.push(RegExp.$1);
+                last = RegExp.$2;
             }
             last.split(/&/).forEach(function(v) {
                 if (/^([^=]+)=(.*)$/.test(v)) {
@@ -21,7 +20,7 @@
                     params['_flags'].push(v);
                 }
             });
-        } else if (last) {
+        } else {
             uri.push(last)
         }
         var self = {
@@ -31,21 +30,28 @@
             params: params,
             q: q
         };
-        self.toString = function() {
+        self.toLocalPath = function() {
             params = [];
             for (var p in self.params) {
-                if (p == '_flags') {
-                    params += self.params[p];
-                } else {
-                    var val = self.params[p];
-                    var encoded = URI.encode(val);
-                    params.push(p + '=' + (/%/.test(val) ? val : encoded));
+                if (typeof self.params[p] != 'undefined') {
+                    if (p == '_flags') {
+                        params += self.params[p];
+                    } else {
+                        var val = self.params[p];
+                        var encoded = URI.encode(val+'');
+                        params.push(p + '=' + (/%/.test(val) ? val : encoded));
+                    }
                 }
             }
-            var s = self.domain+'/'+self.local.join('/');
-            if (self.scheme) s = self.scheme+'://'+s;
+            var s = self.local.join('/');
             params = params.join('&');
-            return params.length ? s + self.q + params : s;
+            return '/' + (params.length ? s + self.q + params : s);
+        };
+        self.toString = function() {
+            var local = self.toLocalPath();
+            var s = self.domain + local;
+            if (self.scheme) s = self.scheme + '://' + s;
+            return s;
         };
         return self;
     }, {
@@ -63,6 +69,14 @@
                 }
             }
             return s;
+        },
+        location: function() {
+            return new URI(location.href);
+        },
+        params: function(args) {
+            var uri = URI.location();
+            for (var prop in args) uri.params[prop] = args[prop];
+            return uri;
         }
     });
     GNN.URI = URI;

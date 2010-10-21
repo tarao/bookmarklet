@@ -58,7 +58,7 @@ var init = (function() {
         div = GNN.UI.$(div);
         header = GNN.UI.$(header);
         header.appendChild(res('SELECTOR_LANG'));
-        var uri = new GNN.URI(location.href);
+        var uri = GNN.URI.location();
         new GNN.JSONP(new GNN.URI('./catalog.json'), function(catalog) {
             if (catalog.debug) {
                 addDebugButton(div, uri.params.debug);
@@ -68,7 +68,13 @@ var init = (function() {
                 }
             }
             for (var file in catalog.list) {
-                addCatalog(div, catalog, file);
+                if (!uri.params.permalink ||
+                    uri.params.permalink == GNN.URI.encode(file)) {
+                    addCatalog(div, catalog, file);
+                }
+            }
+            if (uri.params.permalink) {
+                div.appendChild(res('BACK_TO_LIST'));
             }
         });
     }
