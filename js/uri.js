@@ -74,6 +74,7 @@
             return new URI(location.href);
         },
         params: function(args) {
+            args = args || {};
             var uri = URI.location();
             for (var prop in args) uri.params[prop] = args[prop];
             return uri;

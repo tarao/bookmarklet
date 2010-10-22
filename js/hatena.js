@@ -1,6 +1,5 @@
 /*
- * @title[en]        hatena
- * @title[ja]        はてな
+ * @title            hatena
  * @description[en]  A navigator for *.hatena.ne.jp
  * @description[ja]  *.hatena.ne.jp内のページを簡単に開く
  * @type             smarklet

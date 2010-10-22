@@ -29,6 +29,22 @@ with (Resource) { with (GNN.UI) {
         ja: '<< 一覧に戻る',
         en: '<< go back',
     }));
+    def('INSTRUCTION_SMARKLET_CAPTION', L({
+        ja: 'smarkletのインストール方法',
+        en: 'How to install smarklets',
+    }));
+    def('ALT_IMG_MENU', L({
+        ja: 'コンテキストメニュー [この検索にキーワードを設定]',
+        en: 'context menu [Add a Keyword for this Search]',
+    }));
+    def('ALT_IMG_DIALOG', L({
+        ja: 'キーワードつきの新しいブックマーク',
+        en: 'New bookmark with a keyword',
+    }));
+    def('ALT_IMG_KEYWORD', L({
+        ja: 'キーワードを設定',
+        en: 'Specify some keyword',
+    }));
 } }
 
 /* generic resource */
@@ -54,7 +70,7 @@ with (Resource) { with (GNN.UI) { with (GNN.URI) {
         });
     });
     def('SELECTOR_DEBUG', function(d) {
-        return $new('div', { klass: 'debug_or_release', child: [
+        return $new('div', { klass: 'debug-or-release', child: [
             $new('a', {
                 klass: (d ? '' : 'selected'),
                 attr: { href: params({ debug: undefined }).toLocalPath() },
@@ -82,24 +98,38 @@ with (Resource) { with (GNN.UI) { with (GNN.URI) {
             ]
         });
     });
-    def('LINK_SMARKLET', function(file, text1, text2) {
-        return $new('form', {
-            attr: { method: 'get', action: text1 },
-            child: $new('p', {
-                child: [
-                    $new('label', {
-                        attr: { 'for': 's' },
-                        child: $text(res('INSTALL')) }),
-                    $new('input', {
-                        klass: 'smarklet',
-                        attr: { type: 'text', name: 's',
-                                value: res('LINK_SMARKLET_TEXT') } }),
-                    $new('input', {
-                        attr: { type: 'hidden', name: 'h',
-                                value: text2 } })
-                ]
-            })
+    def('HELP_BUTTON', function() {
+        return $new('a', {
+            klass: 'help',
+            attr: { href: params().toLocalPath() },
+            child: $text('?')
         });
+    });
+    def('LINK_SMARKLET', function(file, text1, text2) {
+        var input = $new('input', {
+            klass: 'smarklet',
+            attr: { type: 'text', name: 's',
+                    value: res('LINK_SMARKLET_TEXT') } });
+        var help = res('HELP_BUTTON');
+        return {
+            form: $new('form', {
+                attr: { method: 'get', action: text1 },
+                child: $new('p', {
+                    child: [
+                        $new('label', {
+                            attr: { 'for': 's' },
+                            child: $text(res('INSTALL')) }),
+                        input,
+                        help,
+                        $new('input', {
+                            attr: { type: 'hidden', name: 'h',
+                                    value: text2 } })
+                    ]
+                })
+            }),
+            input: input,
+            help: help
+        };
     });
     def('LINK_BOOKMARKLET', function(file, text1, text2) {
         return $new('p', { child: [
@@ -110,6 +140,51 @@ with (Resource) { with (GNN.UI) { with (GNN.URI) {
                 attr: { href: text1 + text2 }
             })
         ] });
+    });
+
+    def('IMG_MENU', function() {
+        return $new('img', { id: 'instruction-menu', attr: {
+            src: './fig/menu.png.' + lang(),
+            alt: res('ALT_IMG_MENU'),
+        } });
+    });
+    def('IMG_DIALOG', function() {
+        return $new('img', { id: 'instruction-dialog', attr: {
+            src: './fig/dialog.png.' + lang(),
+            alt: res('ALT_IMG_DIALOG'),
+        } });
+    });
+    def('IMG_KEYWORD', function() {
+        return $new('img', { id: 'instruction-keyword', attr: {
+            src: './fig/keyword.png.' + lang(),
+            alt: res('ALT_IMG_KEYWORD'),
+        } });
+    });
+    def('INSTRUCTION_CLOSE', function(id, caption) {
+        return $new('div', { child: [
+            $new('a', {
+                id: id,
+                klass: 'instruction-close',
+                attr: { href: params().toLocalPath() },
+                child: $text('\u2716'),
+            }),
+            $new('span', {
+                klass: 'instruction-caption',
+                child: $text(caption)
+            })
+        ] });
+    });
+    def('INSTRUCTION_SMARKLET', function() {
+        return $new('div', {
+            id: 'instruction-smarklet',
+            klass: 'instruction',
+            child: [
+                res('INSTRUCTION_CLOSE',
+                    'instruction-smarklet-close',
+                    res('INSTRUCTION_SMARKLET_CAPTION')),
+                res('IMG_MENU'), res('IMG_DIALOG'), res('IMG_KEYWORD')
+            ]
+        });
     });
 
     def('BACK_TO_LIST', function() {

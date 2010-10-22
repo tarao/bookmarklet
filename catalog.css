@@ -1,31 +1,31 @@
-div.debug_or_release
+div.debug-or-release
 {
    margin-bottom: 1.5em;
 }
 
-div.debug_or_release > a
+div.debug-or-release > a
 {
    font-weight: bold;
    padding: 0.3em;
    margin-right: 0.5em;
 }
 
-div.debug_or_release > a:visited
+div.debug-or-release > a:visited
 {
   color: darkblue;
 }
 
-div.debug_or_release > a:visited:hover
+div.debug-or-release > a:visited:hover
 {
   background-color: #e0e0ff;
   outline-color: blue;
 }
 
-div.debug_or_release > a.selected,
-div.debug_or_release > a.selected:hover,
-div.debug_or_release > a.selected:active,
-div.debug_or_release > a.selected:link,
-div.debug_or_release > a.selected:visited
+div.debug-or-release > a.selected,
+div.debug-or-release > a.selected:hover,
+div.debug-or-release > a.selected:active,
+div.debug-or-release > a.selected:link,
+div.debug-or-release > a.selected:visited
 {
    color: white;
    background-color: gray;
@@ -64,24 +64,91 @@ div.entry h2 a
 }
 
 div.entry input.smarklet,
-div.entry a.bookmarklet,
-div.entry a.bookmarklet:hover,
-div.entry a.bookmarklet:active,
-div.entry a.bookmarklet:link,
-div.entry a.bookmarklet:visited
+div.entry a.bookmarklet
 {
    color: #003333;
    cursor: pointer;
    width: 28em;
+   height: 1.4em;
    font-size: 100%;
    text-align: center;
    text-decoration: none;
-   padding: 0.5em 0.8em;
-   margin-left: 1em;
+   padding: 0.2em 0.8em;
+   margin: 0 0.5em 0 1em;
    font-weight: bold;
    background-color: #ccffdd ! important;
    border: solid 0.2em #99eebb;
    outline: none;
    -moz-border-radius: 3px;
    -webkit-border-radius: 3px;
+}
+
+div.entry input.smarklet:hover,
+div.entry a.bookmarklet:hover
+{
+   background-color: #ffccdd ! important;
+   border-color: #ee99bb;
+}
+
+a.help
+{
+   border: solid 0.2em #ccddff;
+   padding: 0 0.5em;
+   color: #99aacc;
+   font-size: 70%;
+   font-weight: bold;
+   text-decoration: none;
+   outline: none;
+   background-color: transparent;
+   -moz-border-radius: 6px;
+   -webkit-border-radius: 6px;
+}
+a.help:hover
+{
+   background-color: #ccddff;
+}
+
+div.instruction
+{
+   background-color: #ccddff;
+   border: solid 6px #ccddff;
+   position: fixed;
+   visibility: hidden;
+   -moz-border-radius: 6px;
+   -webkit-border-radius: 6px;
+}
+
+a.instruction-close
+{
+   color: #99aacc;
+   font-weight: bold;
+   text-decoration: none;
+   outline: none;
+   background-color: transparent ! important;
+}
+
+span.instruction-caption
+{
+   margin-left: 1em;
+   color: #99aacc;
+   font-weight: bold;
+}
+
+img#instruction-menu
+{
+   position: absolute;
+   background-color: transparent;
+   z-index: 5;
+   left: 64px;
+   top: 144px;
+}
+
+img#instruction-dialog,
+img#instruction-keyword
+{
+   position: absolute;
+   background-color: transparent;
+   z-index: 10;
+   left: 184px;
+   top: 64;
 }

@@ -1,14 +1,7 @@
 if (typeof GNN.UI == 'undefined') GNN.UI = {};
 
 (function(ns) {
-    var forEach = function(hash, f){ for (var p in hash) f(p, hash[p]); };
-    var merge = function() {
-        var hash = {}; var args=[]; args.push.apply(args, arguments);
-        args.forEach(function(arg) { forEach(arg, function(k,x) {
-            if (typeof hash[k] == 'undefined') hash[k] = x;
-        }); });
-        return hash;
-    }
+    var forEach = GNN.Hash.forEach;
     ns.doc = function(){ return ns.document || document; };
     ns.isNode = function(x){ return x && typeof x.nodeType == 'number'; };
     ns.text = function(node){ return node.textContent||node.innerText||''; };
@@ -122,7 +115,7 @@ if (typeof GNN.UI == 'undefined') GNN.UI = {};
         } else if (typeof m != 'undefined') {
             fun = m;
         }
-        var callback = function(e){ return fun.call(obj, new Event(e)); };
+        var callback = function(e){ return fun.call(obj, new ns.Event(e)); };
         self.start = function() {
             if (self.node.addEventListener) {
                 if (event.indexOf('on') == 0) self.event = event.substr(2);
