@@ -1,0 +1,14 @@
+div.documentation
+{
+   padding: 1em;
+}
+
+.documentation h1 {
+   border: none;
+}
+
+.documentation h2 {
+   color: black ! important;
+   background-color: transparent ! important;
+   border: none ! important;
+}

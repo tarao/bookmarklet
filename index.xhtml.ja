@@ -10,9 +10,11 @@
   <script type="text/javascript" src="./js/draggable.js"></script>
   <script type="text/javascript" src="./resource.js"></script>
   <script type="text/javascript" src="./resource.data.js"></script>
+  <script type="text/javascript" src="./showdown.js"></script>
   <script type="text/javascript" src="./catalog.js"></script>
   <link rel="stylesheet" type="text/css" href="./default.css" />
   <link rel="stylesheet" type="text/css" href="./catalog.css" />
+  <link rel="stylesheet" type="text/css" href="./markdown.css" />
   <link rel="start" href="http://orezdnu.org/" />
   <link rev="made" href="http://orezdnu.org/" />
   <title>gnn::smarklet</title>

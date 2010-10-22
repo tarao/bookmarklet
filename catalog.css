@@ -90,6 +90,18 @@ div.entry a.bookmarklet:hover
    border-color: #ee99bb;
 }
 
+span.detail
+{
+   font-size: 90%;
+   display: block;
+}
+
+iframe.documentation
+{
+   border: none;
+   width: 100%;
+}
+
 a.help
 {
    border: solid 0.2em #ccddff;
@@ -150,5 +162,5 @@ img#instruction-keyword
    background-color: transparent;
    z-index: 10;
    left: 184px;
-   top: 64;
+   top: 64px;
 }

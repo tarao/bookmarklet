@@ -1,9 +1,11 @@
 /*
- * @title            hatena
- * @description[en]  A navigator for *.hatena.ne.jp
- * @description[ja]  *.hatena.ne.jp内のページを簡単に開く
- * @type             smarklet
- * @option           def:javascript
+ * @title              hatena
+ * @description[en]    A navigator for *.hatena.ne.jp
+ * @description[ja]    *.hatena.ne.jp内のページを簡単に開く
+ * @documentation[en]  ./doc/hatena.en.md
+ * @documentation[ja]  ./doc/hatena.ja.md
+ * @type               smarklet
+ * @option             def:javascript
  *
  * [TODO]
  * - load user definition

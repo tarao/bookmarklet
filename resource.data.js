@@ -13,6 +13,10 @@ with (Resource) { with (GNN.UI) {
         ja: 'デバッグ',
         en: 'debug',
     }));
+    def('DETAIL_TEXT', L({
+        ja: '>> もっと詳しく',
+        en: '>> more detail',
+    }));
     def('INSTALL', L({
         ja: 'インストール:',
         en: 'Install:',
@@ -82,7 +86,7 @@ with (Resource) { with (GNN.UI) { with (GNN.URI) {
         ] });
     });
 
-    def('ENTRY', function(file, meta, link) {
+    def('ENTRY', function(file, meta, desc, link) {
         return $new('div', {
             klass: 'entry',
             child: [
@@ -92,11 +96,33 @@ with (Resource) { with (GNN.UI) { with (GNN.URI) {
                         href: params({ permalink: file }).toLocalPath()
                     } })
                 }),
-                $new('p', { klass: 'description',
-                            child: $text(meta.description) }),
+                desc,
                 link
             ]
         });
+    });
+    def('DESCRIPTION', function(text) {
+        return $new('p', { klass: 'description', child: $text(text) });
+    });
+    def('DETAIL', function(url) {
+        return $new('span', { klass: 'detail', child: $new('a', {
+            attr: { href: url },
+            child: $text(res('DETAIL_TEXT'))
+        }) });
+    });
+    def('DOCUMENTATION_FRAME', function(url) {
+        var iframe = $new('iframe', {
+            klass: 'documentation',
+            attr: { src: url }
+        });
+        var height = window.innerHeight;
+        iframe.style.height = document.body.clientHeight+'px';
+        return iframe;
+    });
+    def('DOCUMENTATION_NODE', function(text) {
+        var node = $new('div', { klass: 'documentation' });
+        node.innerHTML = text;
+        return node;
     });
     def('HELP_BUTTON', function() {
         return $new('a', {

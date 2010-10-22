@@ -7,7 +7,7 @@ var init = (function() {
             return meta[prop+'['+lang()+']'] || meta[prop];
         };
         var self = {};
-        [ 'title', 'type', 'description', 'option', 'document'
+        [ 'title', 'type', 'description', 'option', 'documentation'
         ].forEach(function(prop) {
             self[prop] = getProp(prop) || res('NO_'+prop.toUpperCase());
         });
@@ -74,12 +74,51 @@ var init = (function() {
     };
     var instruction;
 
-    var Catalog = function(catalog, file) {
+    var Description = function(file, meta) {
+        var desc = res('DESCRIPTION', meta.description);
+        if (!meta.permalink && meta.documentation) {
+            var p = { permalink: file };
+            desc.appendChild(res('DETAIL', GNN.URI.params(p)));
+        }
+        return desc;
+    };
+
+    var showdown = function() {
+        if (typeof Showdown == 'undefined') return null;
+        if (!Showdown.converter) return null;
+        return new Showdown.converter();
+    };
+
+    var documentation = function(div, uri) {
+        var iframeDoc = function() {
+            div.appendChild(res('DOCUMENTATION_FRAME', uri));
+        };
+        var dom = new GNN.URI(uri).domain;
+        var sd = showdown();
+        if ((!dom || dom == '.' || dom == GNN.URI.location().domain) &&
+            /\.md$/.test(uri) && sd) {
+            // FIXME?: support other browsers
+            var req = new XMLHttpRequest();
+            req.open('GET', uri);
+            req.onreadystatechange = function(e) {
+                if (req.readyState == 4 && req.status == 200) {
+                    var text = sd.makeHtml(req.responseText);
+                    div.appendChild(res('DOCUMENTATION_NODE', text));
+                }
+            };
+            req.send(null);
+        } else {
+            iframeDoc();
+        }
+    };
+
+    var Catalog = function(catalog, file, permalink) {
         var [ re1, re2 ] = [ new RegExp("\\\\",'g'), new RegExp("'",'g') ];
         var e = function(str) {
             return str.replace(re1, '\\\\').replace(re2, "\\'");
         };
         var meta = new Meta(catalog.list[file]);
+        meta.permalink = permalink;
         var actionText = "javascript:[                                       \
             '" + e(meta.title) + "','" + e(file) + "','" + e(catalog.base) +
                 "'," + !!catalog.nocache + ",                                \
@@ -113,7 +152,11 @@ var init = (function() {
                     });
                     form = form.form;
                 }
-                var entry = res('ENTRY', file, meta, form);
+                var desc = new Description(file, meta);
+                var entry = res('ENTRY', file, meta, desc, form);
+                if (permalink && meta.documentation) {
+                    documentation(entry, meta.documentation);
+                }
                 return entry;
             }
         };
@@ -123,8 +166,8 @@ var init = (function() {
         div.appendChild(res('SELECTOR_DEBUG', d));
     }
 
-    var addCatalog = function(div, catalog, file) {
-        var div2 = new Catalog(catalog, file).toNode();
+    var addCatalog = function(div, catalog, file, permalink) {
+        var div2 = new Catalog(catalog, file, permalink).toNode();
         if (div2) div.appendChild(div2);
     }
 
@@ -145,7 +188,7 @@ var init = (function() {
             for (var file in catalog.list) {
                 if (!uri.params.permalink ||
                     uri.params.permalink == GNN.URI.encode(file)) {
-                    addCatalog(div, catalog, file);
+                    addCatalog(div, catalog, file, uri.params.permalink);
                 }
             }
             if (uri.params.permalink) {
