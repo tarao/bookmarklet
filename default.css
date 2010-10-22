@@ -74,6 +74,14 @@ h1
   border-style: none none double none;
 }
 
+h1 a
+{
+   color: inherit ! important;
+   background-color: inherit ! important;
+   text-decoration: none ! important;
+   outline: none ! important;
+}
+
 p
 {
   margin: 1em 0.5em;
